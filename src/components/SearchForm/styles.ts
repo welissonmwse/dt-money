@@ -29,6 +29,7 @@ export const SearchFormContainer = styled.form`
     color: ${(props) => props.theme["green-300"]};
     font-weight: 700;
     border-radius: 6px;
+    cursor: pointer;
 
     transition: all .2s;
 
