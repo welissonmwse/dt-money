@@ -17,11 +17,11 @@ export function NewTransactionModal(){
                 <input type="text" placeholder="Categoria" />
 
                 <C.TransactionTypeContainer>
-                  <C.TransactionTypeButton variant="income">
+                  <C.TransactionTypeButton variant="income" value="income">
                     <ArrowCircleUp size={24} />
                   </C.TransactionTypeButton>
 
-                  <C.TransactionTypeButton variant="outcome">
+                  <C.TransactionTypeButton variant="outcome" value="outcome">
                   <ArrowCircleDown size={24} />
                   </C.TransactionTypeButton>
                 </C.TransactionTypeContainer>
