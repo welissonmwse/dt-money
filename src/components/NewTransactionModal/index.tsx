@@ -1,6 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import {zodResolver} from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import * as C from './styles'
@@ -15,7 +15,7 @@ const newTransactionFormSchema = z.object({
 type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
 
 export function NewTransactionModal(){
-  const { register, handleSubmit, formState: {isSubmitting} } = useForm<NewTransactionFormInputs>({
+  const { control, register, handleSubmit, formState: {isSubmitting} } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema)
   })
 
@@ -48,17 +48,28 @@ export function NewTransactionModal(){
             {...register('category')} 
           />
 
-          <C.TransactionTypeContainer>
-            <C.TransactionTypeButton variant="income" value="income">
-              <ArrowCircleUp size={24} />
-              Entrada
-            </C.TransactionTypeButton>
+          <Controller 
+            control={control}
+            name="type"
+            render={({field}) => {
+              return(
+                <C.TransactionTypeContainer 
+                  onValueChange={field.onChange} 
+                  value={field.value}
+                >
+                  <C.TransactionTypeButton variant="income" value="income">
+                    <ArrowCircleUp size={24} />
+                    Entrada
+                  </C.TransactionTypeButton>
 
-            <C.TransactionTypeButton variant="outcome" value="outcome">
-              <ArrowCircleDown size={24} />
-              Saída
-            </C.TransactionTypeButton>
-          </C.TransactionTypeContainer>
+                  <C.TransactionTypeButton variant="outcome" value="outcome">
+                    <ArrowCircleDown size={24} />
+                    Saída
+                  </C.TransactionTypeButton>
+                </C.TransactionTypeContainer>
+              )
+            }}
+          />
 
           <button type="submit" disabled={isSubmitting}>Cadastrar</button>
         </form>
