@@ -28,7 +28,7 @@ export function TransactionProvider({children}: TransactionProviderProps){
       const data = await response.json()
       setTransactions(data)
     })()
-  })
+  },[])
   
   return(
     <TransactionsContext.Provider value={{transactions}}>
