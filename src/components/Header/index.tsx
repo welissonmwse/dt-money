@@ -4,7 +4,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 import LogoImg from '../../assets/logo.svg'
 import { NewTransactionModal } from '../NewTransactionModal'
 
-export function Header(){
+export function Header() {
   return (
     <C.HeaderContainer>
       <C.HeaderContent>

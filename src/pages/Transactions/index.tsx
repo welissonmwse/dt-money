@@ -1,15 +1,13 @@
-import { Header } from "../../components/Header";
-import { SearchForm } from "../../components/SearchForm";
-import { Summary } from "../../components/Summary";
-import { useTransactions } from "../../hooks/useTransactions";
-import { dateFormatter, priceFormatter } from "../../utils/formatter";
+import { Header } from '../../components/Header'
+import { SearchForm } from '../../components/SearchForm'
+import { Summary } from '../../components/Summary'
+import { useTransactions } from '../../hooks/useTransactions'
+import { dateFormatter, priceFormatter } from '../../utils/formatter'
 
 import * as C from './styles'
 
-
-
-export function Transactions(){
-  const {transactions} = useTransactions()
+export function Transactions() {
+  const { transactions } = useTransactions()
 
   return (
     <div>
@@ -19,7 +17,7 @@ export function Transactions(){
         <SearchForm />
         <C.TransactionsTable>
           <tbody>
-            {transactions.map(transaction => (
+            {transactions.map((transaction) => (
               <tr key={transaction.id}>
                 <td>{transaction.description}</td>
                 <td>

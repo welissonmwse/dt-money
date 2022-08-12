@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-
 export const HeaderContainer = styled.header`
   background-color: ${(props) => props.theme['gray-900']};
   padding: 2.5rem 0 7.5rem;
@@ -27,7 +26,7 @@ export const NewTransactionButton = styled.button`
   border-radius: 6px;
   cursor: pointer;
 
-  transition: background-color .2s;
+  transition: background-color 0.2s;
 
   &:hover {
     background-color: ${(props) => props.theme['green-700']};
