@@ -1,34 +1,68 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
+import { useForm } from 'react-hook-form'
+import {zodResolver} from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import * as C from './styles'
 
+const newTransactionFormSchema = z.object({
+  description: z.string(),
+  price: z.number(),
+  category: z.string(),
+  type: z.enum(['income', 'outcome']),
+})
+
+type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
+
 export function NewTransactionModal(){
+  const { register, handleSubmit, formState: {isSubmitting} } = useForm<NewTransactionFormInputs>({
+    resolver: zodResolver(newTransactionFormSchema)
+  })
+
+  function handleCreateNewTransaction(data: NewTransactionFormInputs){
+    console.log(data)
+  }
+
   return(
     <Dialog.Portal>
-            <C.Overlay />
-            <C.Content>
-              <C.CloseButton >
-                <X size={24} />
-              </C.CloseButton>
-              <Dialog.Title>Nova transação</Dialog.Title>
-              <form action="">
-                <input type="text" placeholder="Descrição" />
-                <input type="number" placeholder="Preço" />
-                <input type="text" placeholder="Categoria" />
+      <C.Overlay />
+      <C.Content>
+        <C.CloseButton >
+          <X size={24} />
+        </C.CloseButton>
+        <Dialog.Title>Nova transação</Dialog.Title>
+        <form onSubmit={handleSubmit(handleCreateNewTransaction)}>
+          <input 
+            type="text" 
+            placeholder="Descrição"
+            {...register('description')} 
+          />
+          <input 
+            type="number" 
+            placeholder="Preço"
+            {...register('price', {valueAsNumber: true})} 
+          />
+          <input 
+            type="text" 
+            placeholder="Categoria"
+            {...register('category')} 
+          />
 
-                <C.TransactionTypeContainer>
-                  <C.TransactionTypeButton variant="income" value="income">
-                    <ArrowCircleUp size={24} />
-                  </C.TransactionTypeButton>
+          <C.TransactionTypeContainer>
+            <C.TransactionTypeButton variant="income" value="income">
+              <ArrowCircleUp size={24} />
+              Entrada
+            </C.TransactionTypeButton>
 
-                  <C.TransactionTypeButton variant="outcome" value="outcome">
-                  <ArrowCircleDown size={24} />
-                  </C.TransactionTypeButton>
-                </C.TransactionTypeContainer>
+            <C.TransactionTypeButton variant="outcome" value="outcome">
+              <ArrowCircleDown size={24} />
+              Saída
+            </C.TransactionTypeButton>
+          </C.TransactionTypeContainer>
 
-                <button type="submit">Cadastrar</button>
-              </form>
-            </C.Content>
-          </Dialog.Portal>
+          <button type="submit" disabled={isSubmitting}>Cadastrar</button>
+        </form>
+      </C.Content>
+    </Dialog.Portal>
   )
 }
