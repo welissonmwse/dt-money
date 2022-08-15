@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext } from 'use-context-selector'
 import { TransactionsContext } from '../contexts/TransactionsContext'
 
 export function useTransactions() {
